@@ -1,4 +1,4 @@
-# Neo4j - Ecrire une procédure CYPHER en Java
+= Neo4j - Ecrire une procédure CYPHER en Java
 
 
 Les procédures Cypher dites "user-defined" permettent d'accéder au service GraphDb de Neo4j sans passer par un protocole de transport.
@@ -9,7 +9,7 @@ Elles peuvent s'avérer utiles dans les cas suivants :
 
 Ces procédures se déploient sous forme d'une archive Java (.jar) à déposer dans le dossier _plugins_ de Neo4j. Pour que ce nouveau plugin soit effectif, il est nécessaire de redémarrer le serveur Neo4j.
 
-## Rappel sur les procédures
+== Rappel sur les procédures
 
 
 Pour rappel, l'appel d'une procédure s'effectue de la manière suivante :
@@ -22,18 +22,18 @@ Pour rappel, l'appel d'une procédure s'effectue de la manière suivante :
 
 - _YIELD_ : produit pour résultat (le nom des variables de retour est fixé dans la procédure)
 
-## Ecrire la procédure
+== Ecrire la procédure
  
 
 Considérons trois éléments :
 
 - La classe qui contient les procédures
 
-- Les méthodes annotées [`@Procedure`](https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/procedure/Procedure.html) qui définissent les traitements effectués
+- Les méthodes annotées link:https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/procedure/Procedure.html[`@Procedure`] qui définissent les traitements effectués
 
 - Les classes à propriétés publiques (généralement des classes internes à la classe qui contient les procédures) qui définissent les propriétés produites par une procédure et qui sont accessibles  grâce à l'instruction `YIELD`
 
-### Injections contextuelles
+=== Injections contextuelles
 
 Dans la classe principale, il est possible d'injecter trois types de données contextuelles :
 
@@ -57,7 +57,7 @@ Ces propriétés doivent-être injectées avec l'annotation [`@Context`](https:/
  
 ```
 
-### Annotations @Procedure et @Description
+=== Annotations @Procedure et @Description
 
 Une procédure Cypher est donc une méthode Java annotée par `@Procedure`.
 
@@ -84,7 +84,7 @@ L'annotation `@Description` va quant à elle permettre de documenter la procédu
  
 ```
 
-### Ecrire la méthode d'une procédure
+=== Ecrire la méthode d'une procédure
 
 La méthode annotée par `@Procedure` doit respecter les règles suivantes :
 
@@ -105,7 +105,7 @@ S'il faut lever une exception dans la procédure, elle doit-être de type `java.
 }
 ``` 
 
-### Ecrire la YIELD classe
+=== Ecrire la YIELD classe
 
 Cette classe va servir à exporter les résultats produits par la procédure dans la requête Cypher qui a servi à l'appel.
 
@@ -126,7 +126,7 @@ public class YieldClass{
 }
 ``` 
 
-## Ecrire le test
+== Ecrire le test
 
 Le projet Neo4j [harness](https://github.com/neo4j/neo4j/tree/3.5/community/neo4j-harness/) fournit un set de classes pour JUnit permettant de tester des développements Neo4j sans pour autant lever de serveur à l'extérieur de l'environnement de test.
 
@@ -144,7 +144,7 @@ public Neo4jRule neo4j = new Neo4jRule()
 ```
 Ce qui signifie : initialise un environnement Neo4j en intégrant le jeu de procédures `FooProcedures`  et en initialisant la base avec l'ordre CYPHER `CREATE (n:MyLabel)`.
 
-## Déployer le plugin
+== Déployer le plugin
 
 Lancer le build du projet puis placer le .jar généré dans le dossier _/plugins_ du serveur Neo4j. Ensuite, redémarrer ce dernier.
 
