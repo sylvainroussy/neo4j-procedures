@@ -43,7 +43,7 @@ Dans la classe principale, il est possible d'injecter trois types de données co
 
 - [`org.neo4j.procedure.TerminationGuard`](https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/procedure/TerminationGuard.html) : particulièrement utile sur une procédure dont le temps d'exécution est long, ce service va vérifier que la requête parente (celle qui a initié la procédure, ou encore la transaction) n'a pas été interrompue par l'utilisateur ou n'a pas dépassé le temps d'exécution maximal (timeout)    
  
-Ces propriétés doivent-être injectées avec l'annotation [`@Context`](https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/procedure/Context.html) elles doivent-être déclarées publiques, ne doivent pas être ni statitiques, ni finales.
+Ces propriétés doivent-être injectées avec l'annotation [`@Context`](https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/procedure/Context.html), elles doivent-être déclarées publiques et ne doivent pas être ni statiques, ni finales.
  
 ```
  @Context
