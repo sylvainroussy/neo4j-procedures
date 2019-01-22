@@ -57,7 +57,7 @@ Ces propriétés doivent-être injectées avec l'annotation [`@Context`](https:/
  
 ```
 
-### Annotation @Procedure
+### Annotations @Procedure et @Description
 
 Une procédure Cypher est donc une méthode Java annotée par `@Procedure`.
 
@@ -67,11 +67,41 @@ Cette annotation peut prendre jusqu'à cinq arguments :
 
 - _name_ = identique à l'argument _value_
 
-- deprecatedBy = nom d'une procéure de remplacement qui sera affichée dans le Warning de la console Web
+- deprecatedBy = nom d'une procédure de remplacement qui sera affichée dans le Warning de la console Web
 
 - mode = spécifie le type d'opérations appliquées sur Neo4j : `Mode.READ` pour la lecture de données,`Mode.WRITE` pour l'écriture de données, `Mode.SCHEMA` pour la modification d'Index et de contraintes, `Mode.DBMS` pour les opérations système (utilisateurs, permissions, etc). Par défaut Mode.READ est activé.
 
-- _eager_ =  par défaut, Cypher charge les données au dernier moment (_Lazily_) mais dans les cas de lecture/écriture au sein d'une même requête, ce comportement peut avoir des effets de bords. Positionner l'argument _eager_ à _true_ permet d'éviter ces effets de bord.
+- _eager_ =  par défaut, Cypher charge les données au dernier moment (_Lazily_) mais dans les cas de lecture/écriture au sein d'une même requête, ce comportement peut avoir des effets de bords. Positionner l'argument _eager_ à _true_ permet d'éviter ces dits effets.
+
+L'annotation `@Description` va quant à elle permettre de documenter la procédure en question.
+
+```
+ @Procedure(value = "srosoft.findByLabel",mode=Mode.READ)
+ @Description("return nodes by label")
+ public Stream<NodesResult> findByLabel( @Name("label") String label) {
+ 	...
+ }
+ 
+```
+
+### Ecrire la méthode d'une procédure
+
+La méthode annotée par `@Procedure` doit respecter les règles suivantes :
+
+- Etre publique
+
+- Retourner un `Stream<T>` où T correspond à la classe portant les propriétés retournées par l'instruction `YIELD`
+
+S'il faut lever une exception dans la procédure, elle doit-être de type `java.lang.RuntimeException` ou étendre celle-ci. 
+
+``` 
+public Stream<NodesResult> findByLabel( @Name("label") String label) {
+    	
+    	log.info("Calling procedure: srosoft.findByLabel with label: "+label);
+    	final ResourceIterator<Node> ri = db.findNodes(Label.label (label));    	
+    	return ri.stream().map(NodesResult::new);
+    }
+``` 
 
 ## Ecrire le test
 

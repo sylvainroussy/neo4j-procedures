@@ -30,10 +30,11 @@ public class FindByLabelProcedure {
    
     
     @Procedure(value = "srosoft.findByLabel",mode=Mode.READ)
-    @Description("return node by labels found nodes")
-    public Stream<NodesResult> findByLabel( @Name("label") String label) throws InterruptedException{
-    	ResourceIterator<Node> ri = db.findNodes(Label.label (label));
-    	log.info("Called findByLabel");
+    @Description("return nodes by label")
+    public Stream<NodesResult> findByLabel( @Name("label") String label) {
+    	
+    	log.info("Calling procedure: srosoft.findByLabel with label: "+label);
+    	final ResourceIterator<Node> ri = db.findNodes(Label.label (label));    	
     	return ri.stream().map(NodesResult::new);
     }
     
