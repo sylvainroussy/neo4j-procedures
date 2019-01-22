@@ -105,6 +105,28 @@ S'il faut lever une exception dans la procédure, elle doit-être de type `java.
 }
 ``` 
 
+### Ecrire la YIELD classe
+
+Cette classe va servir à exporter les résultats produits par la procédure dans la requête Cypher qui a servi à l'appel.
+
+Chacune des propriétés qui la compose sera accessible dans la requête Cypher grâce à l'instruction `YIELD` suivi du nom de la propriété.
+
+Chacune des propriétés qui la compose doit-être publique et non finale
+
+```
+public class YieldClass{
+	public Node node;
+
+	public YieldClass (Node node) {
+		this.node = node;
+	}
+}
+``` 
+
 ## Ecrire le test
+
+Le projet Neo4j [harness](https://github.com/neo4j/neo4j/tree/3.5/community/neo4j-harness/) fournit un set de classes pour JUnit permettant de tester des développements Neo4j sans pour autant lever de serveur.
+
+ 
 
 ## Déployer le plugin

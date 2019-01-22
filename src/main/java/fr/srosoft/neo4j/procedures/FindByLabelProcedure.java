@@ -38,8 +38,8 @@ public class FindByLabelProcedure {
     	return ri.stream().map(YieldClass::new);
     }
     
-    public  class YieldClass{
-    	 public Node node;
+    public class YieldClass{
+    	public Node node;
 
 		public YieldClass (Node node) {
 			this.node = node;
