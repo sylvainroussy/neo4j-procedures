@@ -113,6 +113,9 @@ Chacune des propriétés qui la compose sera accessible dans la requête Cypher 
 
 Chacune des propriétés qui la compose doit-être publique et non finale
 
+Exemple d'appel : 
+`CALL srosoft.findByLabel('MyLabel') YIELD node RETURN node`
+
 ```
 public class YieldClass{
 	public Node node;
