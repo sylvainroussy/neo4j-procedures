@@ -31,17 +31,17 @@ public class FindByLabelProcedure {
     
     @Procedure(value = "srosoft.findByLabel",mode=Mode.READ)
     @Description("return nodes by label")
-    public Stream<NodesResult> findByLabel( @Name("label") String label) {
+    public Stream<YieldClass> findByLabel( @Name("label") String label) {
     	
     	log.info("Calling procedure: srosoft.findByLabel with label: "+label);
     	final ResourceIterator<Node> ri = db.findNodes(Label.label (label));    	
-    	return ri.stream().map(NodesResult::new);
+    	return ri.stream().map(YieldClass::new);
     }
     
-    public  class NodesResult{
+    public  class YieldClass{
     	 public Node node;
 
-		public NodesResult (Node node) {
+		public YieldClass (Node node) {
 			this.node = node;
 		}
     }

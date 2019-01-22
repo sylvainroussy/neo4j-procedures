@@ -90,17 +90,19 @@ La méthode annotée par `@Procedure` doit respecter les règles suivantes :
 
 - Etre publique
 
-- Retourner un `Stream<T>` où T correspond à la classe portant les propriétés retournées par l'instruction `YIELD`
+- Retourner un `java.util.stream.Stream<T>` où T correspond à la classe portant les propriétés retournées par l'instruction `YIELD`
+
+- Chaque paramètre d'entrée de la méthode doit-être prefixé de l'annotation [`@Name`](https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/procedure/Name.html) 
 
 S'il faut lever une exception dans la procédure, elle doit-être de type `java.lang.RuntimeException` ou étendre celle-ci. 
 
 ``` 
-public Stream<NodesResult> findByLabel( @Name("label") String label) {
+ public Stream<YieldClass> findByLabel( @Name("label") String label) {
     	
     	log.info("Calling procedure: srosoft.findByLabel with label: "+label);
     	final ResourceIterator<Node> ri = db.findNodes(Label.label (label));    	
-    	return ri.stream().map(NodesResult::new);
-    }
+    	return ri.stream().map(YieldClass::new);
+}
 ``` 
 
 ## Ecrire le test
