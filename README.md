@@ -142,6 +142,17 @@ public Neo4jRule neo4j = new Neo4jRule()
 					.withProcedure(FooProcedures.class)
 					.withFixture("CREATE (n:MyLabel)");
 ```
-Ce qui signifie : initialise un environnement Neo4j en intégrant le jeu de procédures `FooProcedures`  et en initialisant la base avec l'ordre CYPHER `CREATE (n:MyLabel)``.
+Ce qui signifie : initialise un environnement Neo4j en intégrant le jeu de procédures `FooProcedures`  et en initialisant la base avec l'ordre CYPHER `CREATE (n:MyLabel)`.
 
 ## Déployer le plugin
+
+Lancer le build du projet puis placer le .jar généré dans le dossier _/plugins_ du serveur Neo4j. Ensuite, redémarrer ce dernier.
+
+Tester la présence de la procédure en tapant la requête Cypher suivante :
+
+```
+CALL dbms.procedures() YIELD name, signature, description 
+WITH name,signature,description  
+WHERE name="srosoft.findByLabel" 
+RETURN name, signature, description
+```
