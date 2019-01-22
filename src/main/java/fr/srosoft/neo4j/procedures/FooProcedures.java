@@ -14,7 +14,7 @@ import org.neo4j.procedure.Name;
 import org.neo4j.procedure.Procedure;
 import org.neo4j.procedure.TerminationGuard;
 
-public class FindByLabelProcedure {
+public class FooProcedures {
 	// This field declares that we need a GraphDatabaseService
     // as context when any procedure in this class is invoked
     @Context

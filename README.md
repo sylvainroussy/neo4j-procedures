@@ -128,8 +128,20 @@ public class YieldClass{
 
 ## Ecrire le test
 
-Le projet Neo4j [harness](https://github.com/neo4j/neo4j/tree/3.5/community/neo4j-harness/) fournit un set de classes pour JUnit permettant de tester des développements Neo4j sans pour autant lever de serveur.
+Le projet Neo4j [harness](https://github.com/neo4j/neo4j/tree/3.5/community/neo4j-harness/) fournit un set de classes pour JUnit permettant de tester des développements Neo4j sans pour autant lever de serveur à l'extérieur de l'environnement de test.
 
+Les règles JUnit, matérialisées par l'annotation `@Rule` permettent de regrouper des traitements pré et post tests.
+
+La règle `org.neo4j.harness.junit.Neo4jRule` fournie par le projet [harness](https://github.com/neo4j/neo4j/tree/3.5/community/neo4j-harness/) va nous permettre de configurer un environnement serveur Neo4j pré-chargé et lancé sur un port aléatoire. Cet environnement sera détruit à l'issu des tests.
+
+Voici un exemple de configuration :
  
+```
+@Rule
+public Neo4jRule neo4j = new Neo4jRule()								
+								.withProcedure(FooProcedures.class)
+								.withFixture("CREATE (n:MyLabel)");
+```
+Ce qui signifie : initialise un environnement Neo4j en intégrant le jeu de procédures `FooProcedures`  et en initialisant la base avec l'ordre CYPHER `CREATE (n:MyLabel)``.
 
 ## Déployer le plugin

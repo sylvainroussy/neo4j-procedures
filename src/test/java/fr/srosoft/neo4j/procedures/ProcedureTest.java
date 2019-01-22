@@ -16,9 +16,13 @@ import org.neo4j.driver.v1.types.Node;
 import org.neo4j.harness.junit.Neo4jRule;
 
 public class ProcedureTest {
+	
+	public static final String PRE_CYPHER = "CREATE (n:MyLabel)";
 	// This rule starts a Neo4j instance
 	@Rule
-	public Neo4jRule neo4j = new Neo4jRule().withProcedure(FindByLabelProcedure.class);
+	public Neo4jRule neo4j = new Neo4jRule()
+								.withFixture(PRE_CYPHER)
+								.withProcedure(FooProcedures.class);
 
 	@Test
 	public void testFindByLabelProcedure() {
@@ -26,10 +30,6 @@ public class ProcedureTest {
 		// In a try-block, to make sure we close the driver after the test
 		try (Driver driver = GraphDatabase.driver(neo4j.boltURI(), Config.build().withoutEncryption().toConfig())) {
 
-			try(Session session = driver.session()){
-				session.run("CREATE (n:MyLabel)");
-				
-			}
 			
 			final List<Node> results = new ArrayList<>();
 			try(Session session = driver.session()){
