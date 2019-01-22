@@ -139,8 +139,8 @@ Voici un exemple de configuration :
 ```
 @Rule
 public Neo4jRule neo4j = new Neo4jRule()								
-								.withProcedure(FooProcedures.class)
-								.withFixture("CREATE (n:MyLabel)");
+					.withProcedure(FooProcedures.class)
+					.withFixture("CREATE (n:MyLabel)");
 ```
 Ce qui signifie : initialise un environnement Neo4j en intégrant le jeu de procédures `FooProcedures`  et en initialisant la base avec l'ordre CYPHER `CREATE (n:MyLabel)``.
 
