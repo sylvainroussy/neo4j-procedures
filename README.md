@@ -37,11 +37,11 @@ Considérons trois éléments :
 
 Dans la classe principale, il est possible d'injecter trois types de données contextuelles :
 
-- [`org.neo4j.graphdb.GraphDatabaseService`](https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/graphdb/GraphDatabaseService.html target="_blank") : permet d'accéder au graphe Neo4j par le service interne qui lui est dédié
+- [`org.neo4j.graphdb.GraphDatabaseService`](https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/graphdb/GraphDatabaseService.html) : permet d'accéder au graphe Neo4j par le service interne qui lui est dédié
 
-- `org.neo4j.logging.Log` : permet d'accéder au service de journalisation général de Neo4j (neo4j.log)
+- [`org.neo4j.logging.Log`](https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/logging/Log.html) : permet d'accéder au service de journalisation général de Neo4j (neo4j.log)
 
-- `org.neo4j.procedure.TerminationGuard` : particulièrement utile sur une procédure dont le temps d'exécution est long, ce service va vérifier que la requête parente (celle qui a initié la procédure) n'a pas été interropue par l'utilisateur ou n'a pas dépassé le temps d'exécution maximale (timeout)    
+- [`org.neo4j.procedure.TerminationGuard`](https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/procedure/TerminationGuard.html) : particulièrement utile sur une procédure dont le temps d'exécution est long, ce service va vérifier que la requête parente (celle qui a initié la procédure) n'a pas été interropue par l'utilisateur ou n'a pas dépassé le temps d'exécution maximale (timeout)    
  
 
  
