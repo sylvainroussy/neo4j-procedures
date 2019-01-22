@@ -26,14 +26,12 @@ public class FindByLabelProcedure {
     public Log log;
     
     @Context
-    TerminationGuard guard;
+    public TerminationGuard guard;
    
     
     @Procedure(value = "srosoft.findByLabel",mode=Mode.READ)
     @Description("return node by labels found nodes")
-    public Stream<NodesResult> findByLabel( @Name("label") String label){
-    	
-    	
+    public Stream<NodesResult> findByLabel( @Name("label") String label) throws InterruptedException{
     	ResourceIterator<Node> ri = db.findNodes(Label.label (label));
     	log.info("Called findByLabel");
     	return ri.stream().map(NodesResult::new);

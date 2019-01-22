@@ -29,7 +29,7 @@ Considérons trois éléments :
 
 - La classe qui contient les procédures
 
-- Les méthodes annotées `@Procedure` qui définissent les traitements effectués
+- Les méthodes annotées [`@Procedure`](https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/procedure/Procedure.html) qui définissent les traitements effectués
 
 - Les classes à propriétés publiques (généralement des classes internes à la classe qui contient les procédures) qui définissent les propriétés produites par une procédure et qui sont accessibles  grâce à l'instruction `YIELD`
 
@@ -41,9 +41,9 @@ Dans la classe principale, il est possible d'injecter trois types de données co
 
 - [`org.neo4j.logging.Log`](https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/logging/Log.html) : permet d'accéder au service de journalisation général de Neo4j (neo4j.log)
 
-- [`org.neo4j.procedure.TerminationGuard`](https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/procedure/TerminationGuard.html) : particulièrement utile sur une procédure dont le temps d'exécution est long, ce service va vérifier que la requête parente (celle qui a initié la procédure) n'a pas été interropue par l'utilisateur ou n'a pas dépassé le temps d'exécution maximale (timeout)    
+- [`org.neo4j.procedure.TerminationGuard`](https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/procedure/TerminationGuard.html) : particulièrement utile sur une procédure dont le temps d'exécution est long, ce service va vérifier que la requête parente (celle qui a initié la procédure, ou encore la transaction) n'a pas été interrompue par l'utilisateur ou n'a pas dépassé le temps d'exécution maximal (timeout)    
  
-
+Ces propriétés doivent-être injectées avec l'annotation [`@Context`](https://neo4j.com/docs/java-reference/current/javadocs/org/neo4j/procedure/Context.html) elles doivent-être déclarées publiques, ne doivent pas être ni statitiques, ni finales.
  
 ```
  @Context
@@ -57,5 +57,22 @@ Dans la classe principale, il est possible d'injecter trois types de données co
  
 ```
 
-Ecrire le test
---------------
+### Annotation @Procedure
+
+Une procédure Cypher est donc une méthode Java annotée par `@Procedure`.
+
+Cette annotation peut prendre jusqu'à cinq arguments :
+
+- _value_ = nom complet de la procédure (avec le package)
+
+- _name_ = identique à l'argument _value_
+
+- deprecatedBy = nom d'une procéure de remplacement qui sera affichée dans le Warning de la console Web
+
+- mode = spécifie le type d'opérations appliquées sur Neo4j : `Mode.READ` pour la lecture de données,`Mode.WRITE` pour l'écriture de données, `Mode.SCHEMA` pour la modification d'Index et de contraintes, `Mode.DBMS` pour les opérations système (utilisateurs, permissions, etc). Par défaut Mode.READ est activé.
+
+- _eager_ =  par défaut, Cypher charge les données au dernier moment (_Lazily_) mais dans les cas de lecture/écriture au sein d'une même requête, ce comportement peut avoir des effets de bords. Positionner l'argument _eager_ à _true_ permet d'éviter ces effets de bord.
+
+## Ecrire le test
+
+## Déployer le plugin
