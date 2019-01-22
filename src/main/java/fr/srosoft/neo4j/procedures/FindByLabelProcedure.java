@@ -12,6 +12,7 @@ import org.neo4j.procedure.Description;
 import org.neo4j.procedure.Mode;
 import org.neo4j.procedure.Name;
 import org.neo4j.procedure.Procedure;
+import org.neo4j.procedure.TerminationGuard;
 
 public class FindByLabelProcedure {
 	// This field declares that we need a GraphDatabaseService
@@ -24,7 +25,8 @@ public class FindByLabelProcedure {
     @Context
     public Log log;
     
-    
+    @Context
+    TerminationGuard guard;
    
     
     @Procedure(value = "srosoft.findByLabel",mode=Mode.READ)
