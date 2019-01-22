@@ -14,7 +14,7 @@ Ces procédures se déploient sous forme d'une archive Java (.jar) à déposer d
 
 Pour rappel, l'appel d'une procédure s'effectue de la manière suivante :
 
-``` CALL package.procedureName (args) YIELD var1, var2 RETURN var1 ```
+`CALL package.procedureName (args) YIELD var1, var2 RETURN var1`
 
 - _CALL_ : marque l'appel d'une procédure
 
