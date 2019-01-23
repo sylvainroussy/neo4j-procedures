@@ -78,7 +78,7 @@ L'annotation `@Description` va quant à elle permettre de documenter la procédu
 ```
  @Procedure(value = "srosoft.findByLabel",mode=Mode.READ)
  @Description("return nodes by label")
- public Stream<NodesResult> findByLabel( @Name("label") String label) {
+ public Stream<YieldClass> findByLabel( @Name("label") String label) {
  	...
  }
  
